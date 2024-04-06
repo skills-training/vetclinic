@@ -24,7 +24,6 @@ public class VisitService {
     private final VisitMapper visitMapper;
     private final PetRepository petRepository;
     private final VetRepository vetRepository;
-    private final RabbitMqService rabbitMQService;
 
 
     public Page<VisitDto> getAllVisits(Pageable pageable) {
@@ -61,7 +60,6 @@ public class VisitService {
         visit.setPet(pet);
         visit.setVet(vet);
         visit.setDateTime(localDateTime);
-        rabbitMQService.sendMessage(visit);
         return visitMapper.toDto(visitRepository.save(visit));
     }
 
